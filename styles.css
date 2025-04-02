@@ -6,22 +6,24 @@
     font-family: 'Arial', sans-serif;
 }
 
-/* Light Theme with Desert Colors */
+/* Monochrome Theme */
 body {
-    background-color: #FAF3E0; /* Light desert sand color */
-    color: #5C3D2E; /* Warm earthy brown */
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333; /* Dark gray text */
     text-align: center;
     padding: 20px;
 }
 
-/* Header */
+/* Header - Pure White */
 header {
-    background: #E0C9A6; /* Soft beige */
+    background: #ffffff; /* Pure white background */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
+/* Logo */
 #logo {
     width: 150px;
     height: auto;
@@ -32,7 +34,7 @@ header {
 /* Hero Section */
 #hero {
     padding: 40px;
-    background: #F5E1C2; /* Light tan */
+    background: #cccccc; /* Medium gray */
     border-radius: 10px;
     margin: 20px auto;
 }
@@ -46,16 +48,16 @@ header {
     width: 80%;
     max-width: 400px;
     padding: 12px;
-    border: 2px solid #A67B5B;
+    border: 2px solid #888; /* Medium gray border */
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
 }
 
 #search:focus {
-    border-color: #5C3D2E;
+    border-color: #333; /* Dark gray on focus */
     outline: none;
-    box-shadow: 0 0 10px rgba(92, 61, 46, 0.5);
+    box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
 }
 
 /* Car Listings */
@@ -68,20 +70,21 @@ header {
 
 /* Car Card */
 .car {
-    background: white;
+    background: #ffffff; /* White card background */
     padding: 20px;
     margin: 15px;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     width: 280px;
     text-align: center;
     transform: scale(1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Car Hover Effect */
 .car:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Car Image */
@@ -100,7 +103,25 @@ header {
 /* Price */
 .car p {
     font-size: 1.2rem;
-    color: #5C3D2E;
+    color: #333; /* Dark gray price */
+}
+
+/* Status */
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.status.Available {
+    background-color: #4CAF50; /* Green for Available */
+    color: white;
+}
+
+.status.Sold {
+    background-color: #F44336; /* Red for Sold */
+    color: white;
 }
 
 /* Instagram Button */
@@ -109,7 +130,7 @@ header {
     margin-top: 10px;
     text-decoration: none;
     color: white;
-    background: #A67B5B;
+    background: #888; /* Medium gray button */
     padding: 10px 15px;
     border-radius: 8px;
     font-weight: bold;
@@ -117,5 +138,6 @@ header {
 }
 
 .car a:hover {
-    background: #5C3D2E;
+    background: #333; /* Dark gray button on hover */
 }
+
