@@ -17,13 +17,13 @@ header {
 
 /* Logo */
 .logo {
-    max-height: 50px;
+    max-height: 10px;
 }
 
 /* Main Content */
 .container {
-    width: 90%;
-    max-width: 1200px;
+    width: 10%;
+    max-width: 120px;
     margin: 20px auto;
 }
 
