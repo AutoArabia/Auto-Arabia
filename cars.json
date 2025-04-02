@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "make": "Toyota",
+        "model": "Camry",
+        "year": 2020,
+        "price": 12000,
+        "status": "AVAILABLE",
+        "location": "Paris",
+        "image": "https://via.placeholder.com/300x180?text=Toyota+Camry",
+        "description": "Excellent condition with low mileage. Fully serviced and ready to drive."
+    },
+    {
+        "id": 2,
+        "make": "Mercedes",
+        "model": "C-Class",
+        "year": 2019,
+        "price": 25000,
+        "status": "AVAILABLE",
+        "location": "Dubai",
+        "image": "https://via.placeholder.com/300x180?text=Mercedes+C-Class",
+        "description": "Luxury sedan with all the premium features. Well maintained."
+    },
+    {
+        "id": 3,
+        "make": "BMW",
+        "model": "X5",
+        "year": 2018,
+        "price": 35000,
+        "status": "SOLD",
+        "location": "Abu Dhabi",
+        "image": "https://via.placeholder.com/300x180?text=BMW+X5",
+        "description": "Powerful SUV with excellent performance and comfort."
+    }
+]

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Arabia - Car Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>AUTO ARABIA</h1>
+        <p>SEARCH SELECT DRIVE AWAY</p>
+        <a href="index.html" class="back-button">← Back to listings</a>
+    </header>
+
+    <div class="car-details" id="carDetails">
+        <!-- Car details will be loaded here by JavaScript -->
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Load car details when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCarDetails();
+        });
+    </script>
+</body>
+</html>
