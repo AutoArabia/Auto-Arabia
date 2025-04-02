@@ -140,4 +140,20 @@ header {
 .car a:hover {
     background: #333; /* Dark gray button on hover */
 }
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.status.Available {
+    background-color: #4CAF50; /* Green for Available */
+    color: white;
+}
+
+.status.Sold {
+    background-color: #F44336; /* Red for Sold */
+    color: white;
+}
 
