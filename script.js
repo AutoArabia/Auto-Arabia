@@ -4,7 +4,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Sample car data
     const cars = [
-        { name: "Toyota Corolla", price: "Dhs 25,000", image: "https://i.imgur.com/t6BDdM2.jpeg", link: "https://www.instagram.com/p/DChbGclTmsS/?igsh=NTMweHl0NnJ4emxx", status: "Available"}
+        { 
+            id: 1, // Unique ID for each car
+            name: "Toyota Corolla", 
+            price: "Dhs 25,000", 
+            year: "2020", 
+            engine: "2.0L 4-Cylinder", 
+            regionalSpec: "GCC Specs", 
+            contact: "+971 50 123 4567", 
+            image: "https://i.imgur.com/t6BDdM2.jpeg", 
+            status: "Available" 
+        },
+        { 
+            id: 2,
+            name: "Honda Civic", 
+            price: "Dhs 30,000", 
+            year: "2019", 
+            engine: "1.8L Turbo", 
+            regionalSpec: "American Specs", 
+            contact: "+971 55 987 6543", 
+            image: "https://i.imgur.com/someimage.jpeg", 
+            status: "Sold" 
+        }
     ];
 
     // Function to display cars
@@ -17,9 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 <img src="${car.image}" alt="${car.name}">
                 <h2>${car.name}</h2>
                 <p>${car.price}</p>
-                <p class="status ${car.status}">${car.status}</p> <!-- Display status -->
-                <a href="${car.link}" target="_blank">View on Instagram</a>
+                <p class="status ${car.status}">${car.status}</p>
             `;
+
+            // Make the entire car clickable
+            carItem.addEventListener("click", function () {
+                window.location.href = `car-details.html?id=${car.id}`;
+            });
+
             carList.appendChild(carItem);
         });
     }
@@ -29,6 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Search functionality
     searchInput.addEventListener("input", function () {
-        displayCars(this.value); // Filter and update the display based on search input
+        displayCars(this.value);
     });
 });
