@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Sample car data
     const cars = [
         { name: "Toyota Corolla", price: "Dhs 25,000", image: "https://i.imgur.com/t6BDdM2.jpeg", link: "https://www.instagram.com/p/DChbGclTmsS/?igsh=NTMweHl0NnJ4emxx",status: "Available"}
+        { name: "Toyota Corolla", price: "Dhs 25,000", image: "https://i.imgur.com/t6BDdM2.jpeg", link: "https://www.instagram.com/p/DChbGclTmsS/?igsh=NTMweHl0NnJ4emxx", status: "Available" }
     ];
 
     // Function to display cars
