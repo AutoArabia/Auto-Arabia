@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Discover premium used cars at Your Car Brand. Find your dream car today!">
+  <meta name="description" content="Discover premium used cars at Auto Arabia. Find your dream car today!">
+  <meta property="og:title" content="Auto Arabia | Premium Used Cars">
+  <meta property="og:description" content="Discover premium used cars at Auto Arabia. Find your dream car today!">
+  <meta property="og:image" content="https://autoarabia.github.io/Auto-Arabia/aalogo.png">
+  <meta property="og:url" content="https://autoarabia.github.io/Auto-Arabia/">
+  <meta name="twitter:card" content="summary_large_image">
   <title>Auto Arabia | Premium Used Cars</title>
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animation.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Animate On Scroll (AOS) -->
@@ -16,7 +21,7 @@
 <body>
   <!-- Header with Logo -->
   <header>
-    <img src="aalogo.png" alt="Your Car Brand Logo" class="logo" data-aos="fade-down">
+    <img src="aalogo.png" alt="Auto Arabia Logo" class="logo" data-aos="fade-down">
   </header>
 
   <!-- Featured Cars Section -->
@@ -25,28 +30,23 @@
       <h1 data-aos="fade-up">Featured Inventory</h1>
       <div class="featured-cars" id="featured-cars">
         <p>Loading featured cars...</p>
+        <p id="error-message" style="display: none; color: red;">Failed to load featured cars. Please try again later.</p>
       </div>
     </section>
   </main>
 
-  <!-- Instagram Embed (Optional) -->
+  <!-- Instagram Embed -->
   <section class="instagram-embed" data-aos="fade-up">
     <h2>Follow Us for Latest Drops</h2>
-    <div class="iframely-embed">
-      <div class="iframely-responsive">
-        <a href="https://www.instagram.com/autoarabia.ae/" data-iframely-url="//iframely.net/KeYG3IH" aria-label="Follow us on Instagram">Follow us on Instagram</a>
-      </div>
-    </div>
+    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/your-post-id/" data-instgrm-version="14"></blockquote>
+    <script async src="//www.instagram.com/embed.js"></script>
   </section>
-
-  <!-- Load Iframely script (place before closing </body>) -->
-  <script async src="//iframely.net/embed.js"></script>
 
   <!-- Footer -->
   <footer>
-    <p>© <span id="current-year"></span> Your Car Brand. All rights reserved.</p>
+    <p>© <span id="current-year"></span> Auto Arabia. All rights reserved.</p>
     <div class="social-links">
-      <a href="https://www.instagram.com/autoarabia.ae/" target="_blank" aria-label="Follow us on Instagram">
+      <a href="https://www.instagram.com/autoarabia.ae/" target="_blank" aria-label="Follow Auto Arabia on Instagram">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
@@ -62,11 +62,12 @@
         easing: 'ease-in-out',
         once: true
       });
-    });
 
-    // Update current year dynamically
-    document.getElementById("current-year").textContent = new Date().getFullYear();
+      // Update current year dynamically
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+    });
   </script>
-  <script src="js/script.js"></script>
+  <script src="script.js"></script>
+  <script src="scroll.js"></script>
 </body>
 </html>
