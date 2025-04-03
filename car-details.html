@@ -1,9 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
   // Utility Function to Format Price
-  const formatPrice = (price) => {
-    // Remove any existing currency symbols and non-numeric characters
+  const formatPrice = (price, locale = 'en-AE', currency = 'AED') => {
     const numericPrice = Number(price.toString().replace(/[^0-9.]/g, ''));
-    return `${numericPrice.toLocaleString()} DHS`;
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currency
+    }).format(numericPrice);
+  };
+
+  // Lazy Load Images
+  const lazyLoadImage = (imgElement, src) => {
+    imgElement.setAttribute('data-src', src);
+    imgElement.src = ''; // Clear original src
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          imgElement.src = imgElement.dataset.src;
+          observer.unobserve(imgElement);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(imgElement);
   };
 
   // Get car ID from URL
@@ -43,31 +62,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Populate page
       document.getElementById('car-title').textContent = 
-        `${car.make} ${car.model} (${car.year})`;
+        `${car.make || 'Unknown Make'} ${car.model || 'Unknown Model'} (${car.year || 'Unknown Year'})`;
 
       // Format and display the price with "DHS"
-      document.getElementById('car-price').textContent = formatPrice(car.price);
+      document.getElementById('car-price').textContent = car.price ? formatPrice(car.price) : 'Price Not Available';
 
       const badge = document.getElementById('availability-badge');
       badge.textContent = car.available ? 'Available' : 'Sold';
-      badge.classList.add(car.available ? 'available' : 'sold');
+      badge.classList.toggle('available', car.available);
+      badge.classList.toggle('sold', !car.available);
 
       document.getElementById('car-description').textContent = 
         car.description || 'No additional description available.';
 
       // Main image
       const mainImg = document.getElementById('main-image');
-      mainImg.src = car.image;
-      mainImg.alt = `${car.make} ${car.model}`;
+      lazyLoadImage(mainImg, car.image || 'images/default-car.jpg');
+      mainImg.alt = `${car.make || 'Unknown Make'} ${car.model || 'Unknown Model'}`;
 
       // Thumbnails
       const thumbContainer = document.getElementById('thumbnails');
       if (car.images && car.images.length > 0) {
         car.images.forEach((img, index) => {
           const thumb = document.createElement('img');
-          thumb.src = img;
           thumb.className = 'thumbnail';
           thumb.onclick = () => mainImg.src = img;
+          lazyLoadImage(thumb, img);
           thumbContainer.appendChild(thumb);
         });
       } else {
@@ -76,9 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Specs
       const specs = [
-        { label: 'Make', value: car.make },
-        { label: 'Model', value: car.model },
-        { label: 'Year', value: car.year },
+        { label: 'Make', value: car.make || 'N/A' },
+        { label: 'Model', value: car.model || 'N/A' },
+        { label: 'Year', value: car.year || 'N/A' },
         { label: 'Mileage', value: car.mileage || 'N/A' },
         { label: 'Transmission', value: car.transmission || 'N/A' },
         { label: 'Fuel Type', value: car.fuelType || 'N/A' }
@@ -94,19 +114,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Contact buttons
       document.getElementById('whatsapp-btn').onclick = () => {
-        window.open(`https://wa.me/${car.contact.whatsapp}?text=Interested in ${car.make} ${car.model} (ID: ${car.id})`);
+        window.open(`https://wa.me/${car.contact?.whatsapp || '+971YOUR_PHONE_NUMBER'}?text=Interested in ${car.make} ${car.model} (ID: ${car.id})`);
       };
+      document.getElementById('whatsapp-btn').setAttribute('aria-label', `Send WhatsApp inquiry for ${car.make} ${car.model}`);
 
       document.getElementById('call-btn').onclick = () => {
-        window.location.href = `tel:${car.contact.phone}`;
+        window.location.href = `tel:${car.contact?.phone || '+971YOUR_PHONE_NUMBER'}`;
       };
+      document.getElementById('call-btn').setAttribute('aria-label', `Call dealer for ${car.make} ${car.model}`);
     })
     .catch(error => {
       console.error('Error loading cars:', error);
       document.body.innerHTML = `
         <div style="text-align: center; margin-top: 5rem;">
           <h1>Error Loading Data</h1>
-          <p>An unexpected error occurred. Please try again later.</p>
+          <p>An unexpected error occurred: ${error.message}</p>
           <a href="inventory.html">Return to Inventory</a>
         </div>
       `;
