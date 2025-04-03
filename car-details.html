@@ -170,9 +170,14 @@
     </div>
   </footer>
 
-  <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      // Utility Function to Format Price
+      const formatPrice = (price) => {
+        const numericPrice = Number(price.toString().replace(/[^0-9.]/g, ''));
+        return isNaN(numericPrice) ? 'Price Not Available' : `${numericPrice.toLocaleString()} DHS`;
+      };
+
       // Get car ID from URL
       const urlParams = new URLSearchParams(window.location.search);
       const carId = urlParams.get('id');
@@ -210,9 +215,10 @@
 
           // Populate page
           document.getElementById('car-title').textContent = 
-            `${car.make} ${car.model} (${car.year})`;
+            `${car.make || 'Unknown Make'} ${car.model || 'Unknown Model'} (${car.year || 'Unknown Year'})`;
 
-          document.getElementById('car-price').textContent = car.price;
+          // Format and display the price with "DHS"
+          document.getElementById('car-price').textContent = formatPrice(car.price);
 
           const badge = document.getElementById('availability-badge');
           badge.textContent = car.available ? 'Available' : 'Sold';
@@ -223,8 +229,9 @@
 
           // Main image
           const mainImg = document.getElementById('main-image');
-          mainImg.src = car.image;
-          mainImg.alt = `${car.make} ${car.model}`;
+          mainImg.src = car.image || 'images/default-car.jpg';
+          mainImg.alt = `${car.make || 'Unknown Make'} ${car.model || 'Unknown Model'}`;
+          mainImg.loading = 'lazy';
 
           // Thumbnails
           const thumbContainer = document.getElementById('thumbnails');
@@ -234,6 +241,7 @@
               thumb.src = img;
               thumb.className = 'thumbnail';
               thumb.onclick = () => mainImg.src = img;
+              thumb.loading = 'lazy';
               thumbContainer.appendChild(thumb);
             });
           } else {
@@ -242,9 +250,9 @@
 
           // Specs
           const specs = [
-            { label: 'Make', value: car.make },
-            { label: 'Model', value: car.model },
-            { label: 'Year', value: car.year },
+            { label: 'Make', value: car.make || 'Unknown Make' },
+            { label: 'Model', value: car.model || 'Unknown Model' },
+            { label: 'Year', value: car.year || 'Unknown Year' },
             { label: 'Mileage', value: car.mileage || 'N/A' },
             { label: 'Transmission', value: car.transmission || 'N/A' },
             { label: 'Fuel Type', value: car.fuelType || 'N/A' }
@@ -260,12 +268,14 @@
 
           // Contact buttons
           document.getElementById('whatsapp-btn').onclick = () => {
-            window.open(`https://wa.me/${car.contact.whatsapp}?text=Interested in ${car.make} ${car.model} (ID: ${car.id})`);
+            window.open(`https://wa.me/${car.contact?.whatsapp || '+971YOUR_PHONE_NUMBER'}?text=Interested in ${car.make} ${car.model} (ID: ${car.id})`);
           };
+          document.getElementById('whatsapp-btn').setAttribute('aria-label', `Send WhatsApp inquiry for ${car.make} ${car.model}`);
 
           document.getElementById('call-btn').onclick = () => {
-            window.location.href = `tel:${car.contact.phone}`;
+            window.location.href = `tel:${car.contact?.phone || '+971YOUR_PHONE_NUMBER'}`;
           };
+          document.getElementById('call-btn').setAttribute('aria-label', `Call dealer for ${car.make} ${car.model}`);
         })
         .catch(error => {
           console.error('Error loading cars:', error);
