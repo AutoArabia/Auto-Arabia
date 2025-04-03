@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Details | AUTO ARABIA</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Car Details Specific Styles */
+    .car-detail-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .car-gallery {
+      display: grid;
+      gap: 1rem;
+    }
+    .main-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border: 2px solid black;
+    }
+    .thumbnail-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto; /* Enable horizontal scrolling for thumbnails */
+    }
+    .thumbnail {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      transition: all 0.3s;
+    }
+    .thumbnail:hover {
+      border-color: black;
+    }
+    .car-info {
+      padding: 1rem;
+    }
+    .price-tag {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      color: black;
+    }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .spec-item {
+      border-bottom: 1px solid #eee;
+      padding: 0.5rem 0;
+    }
+    .contact-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      border-radius: 5px;
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+    .btn-call {
+      background: black;
+      color: white;
+    }
+    .availability-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+    .available {
+      background: #00aa00;
+      color: white;
+    }
+    .sold {
+      background: #cc0000;
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .car-detail-container {
+        grid-template-columns: 1fr;
+      }
+      .thumbnail {
+        width: 60px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (Consistent with other pages) -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" aria-label="Return to Home Page">
+        <img src="images/logo.png" alt="AUTO ARABIA Logo" class="logo">
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Car Details Content -->
+  <main>
+    <div class="car-detail-container">
+      <!-- Gallery Section -->
+      <div class="car-gallery">
+        <img id="main-image" src="" alt="Car Image" class="main-image">
+        <div class="thumbnail-container" id="thumbnails">
+          <!-- Thumbnails will be added by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="car-info">
+        <h1 id="car-title"></h1>
+        <div class="price-tag" id="car-price"></div>
+        <span id="availability-badge" class="availability-badge"></span>
+        
+        <div class="specs-grid" id="specs-grid">
+          <!-- Specs will be added by JavaScript -->
+        </div>
+        
+        <p id="car-description"></p>
+        
+        <div class="contact-actions">
+          <button id="whatsapp-btn" class="btn btn-whatsapp" aria-label="Send WhatsApp Inquiry">
+            <i class="fab fa-whatsapp"></i> WhatsApp Inquiry
+          </button>
+          <button id="call-btn" class="btn btn-call" aria-label="Call Dealer">
+            <i class="fas fa-phone"></i> Call Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (Consistent with other pages) -->
+  <footer>
+    <p>© 2024 AUTO ARABIA. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/autoarabia.ae" target="_blank" aria-label="Follow us on Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://facebook.com/autoarabia.ae" target="_blank" aria-label="Follow us on Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://twitter.com/autoarabia.ae" target="_blank" aria-label="Follow us on Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get car ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const carId = urlParams.get('id');
+
+      if (!carId) {
+        document.body.innerHTML = `
+          <div style="text-align: center; margin-top: 5rem;">
+            <h1>Invalid Request</h1>
+            <p>No car ID was provided in the URL.</p>
+            <a href="inventory.html">Return to Inventory</a>
+          </div>
+        `;
+        return;
+      }
+
+      // Load car data
+      fetch('cars.json')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load cars.');
+          return response.json();
+        })
+        .then(data => {
+          const car = data.cars.find(item => item.id == carId);
+
+          if (!car) {
+            document.body.innerHTML = `
+              <div style="text-align: center; margin-top: 5rem;">
+                <h1>Car Not Found</h1>
+                <p>The car you're looking for does not exist.</p>
+                <a href="inventory.html">Return to Inventory</a>
+              </div>
+            `;
+            return;
+          }
+
+          // Populate page
+          document.getElementById('car-title').textContent = 
+            `${car.make} ${car.model} (${car.year})`;
+
+          document.getElementById('car-price').textContent = car.price;
+
+          const badge = document.getElementById('availability-badge');
+          badge.textContent = car.available ? 'Available' : 'Sold';
+          badge.classList.add(car.available ? 'available' : 'sold');
+
+          document.getElementById('car-description').textContent = 
+            car.description || 'No additional description available.';
+
+          // Main image
+          const mainImg = document.getElementById('main-image');
+          mainImg.src = car.image;
+          mainImg.alt = `${car.make} ${car.model}`;
+
+          // Thumbnails
+          const thumbContainer = document.getElementById('thumbnails');
+          if (car.images && car.images.length > 0) {
+            car.images.forEach((img, index) => {
+              const thumb = document.createElement('img');
+              thumb.src = img;
+              thumb.className = 'thumbnail';
+              thumb.onclick = () => mainImg.src = img;
+              thumbContainer.appendChild(thumb);
+            });
+          } else {
+            thumbContainer.innerHTML = '<p>No additional images available.</p>';
+          }
+
+          // Specs
+          const specs = [
+            { label: 'Make', value: car.make },
+            { label: 'Model', value: car.model },
+            { label: 'Year', value: car.year },
+            { label: 'Mileage', value: car.mileage || 'N/A' },
+            { label: 'Transmission', value: car.transmission || 'N/A' },
+            { label: 'Fuel Type', value: car.fuelType || 'N/A' }
+          ];
+
+          const specsGrid = document.getElementById('specs-grid');
+          specs.forEach(spec => {
+            const item = document.createElement('div');
+            item.className = 'spec-item';
+            item.innerHTML = `<strong>${spec.label}:</strong> ${spec.value}`;
+            specsGrid.appendChild(item);
+          });
+
+          // Contact buttons
+          document.getElementById('whatsapp-btn').onclick = () => {
+            window.open(`https://wa.me/${car.contact.whatsapp}?text=Interested in ${car.make} ${car.model} (ID: ${car.id})`);
+          };
+
+          document.getElementById('call-btn').onclick = () => {
+            window.location.href = `tel:${car.contact.phone}`;
+          };
+        })
+        .catch(error => {
+          console.error('Error loading cars:', error);
+          document.body.innerHTML = `
+            <div style="text-align: center; margin-top: 5rem;">
+              <h1>Error Loading Data</h1>
+              <p>An unexpected error occurred. Please try again later.</p>
+              <a href="inventory.html">Return to Inventory</a>
+            </div>
+          `;
+        });
+    });
+  </script>
+</body>
+</html>
