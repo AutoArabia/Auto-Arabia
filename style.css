@@ -321,3 +321,17 @@ footer {
 .footer-links a:hover {
   color: #25D366; /* Green color for hover effect */
 }
+.btn-secondary {
+  background: black;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #333; /* Dark gray for hover effect */
+}
