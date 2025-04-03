@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Inventory | AUTO ARABIA</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    /* Inventory-specific styles */
+    .sort-options {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .sort-btn {
+      background: black;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .sort-btn:hover {
+      background: #333;
+    }
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+    .availability {
+      font-weight: bold;
+    }
+    .available {
+      color: #00aa00;
+    }
+    .sold {
+      color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (Consistent with index.html) -->
+  <header>
+    <div class="header-container">
+      <a href="index.html">
+        <img src="images/logo.png" alt="Your Car Brand Logo" class="logo">
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Inventory Section -->
+  <main class="inventory-main">
+    <h1 data-aos="fade-up">Full Inventory</h1>
+    
+    <!-- Sort Buttons -->
+    <div class="sort-options" data-aos="fade-up">
+      <button class="sort-btn" onclick="sortCars('low-to-high')">
+        <i class="fas fa-arrow-up"></i> Price: Low to High
+      </button>
+      <button class="sort-btn" onclick="sortCars('high-to-low')">
+        <i class="fas fa-arrow-down"></i> Price: High to Low
+      </button>
+    </div>
+    
+    <!-- Car Grid (Loaded dynamically) -->
+    <div class="inventory-grid" id="inventory-grid">
+      <!-- Cars will be loaded from cars.json via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Footer (Consistent with index.html) -->
+  <footer>
+    <p>© 2024 autoarabia. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/autoarabia.ae" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize animations
+    AOS.init({ duration: 800 });
+    
+    // Load all cars from JSON
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('cars.json')
+        .then(response => response.json())
+        .then(data => {
+          const grid = document.getElementById('inventory-grid');
+          grid.innerHTML = data.cars.map(car => `
+            <div class="car-card" data-aos="fade-up" onclick="location.href='car-details.html?id=${car.id}'">
+              <img src="${car.image}" alt="${car.make} ${car.model}">
+              <div class="car-info">
+                <h3>${car.make} ${car.model} (${car.year})</h3>
+                <p class="price">${car.price}</p>
+                <p class="availability ${car.available ? 'available' : 'sold'}">
+                  ${car.available ? 'Available Now' : 'Sold'}
+                </p>
+              </div>
+            </div>
+          `).join('');
+        });
+    });
+    
+    // Sort cars by price
+    function sortCars(order) {
+      const grid = document.getElementById('inventory-grid');
+      const cards = Array.from(grid.children);
+      
+      cards.sort((a, b) => {
+        const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
+        const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
+        return order === 'low-to-high' ? priceA - priceB : priceB - priceA;
+      });
+      
+      // Clear and re-append sorted cards
+      grid.innerHTML = '';
+      cards.forEach(card => grid.appendChild(card));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Details | Your Car Brand</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Car Details Specific Styles */
+    .car-detail-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .car-gallery {
+      display: grid;
+      gap: 1rem;
+    }
+    .main-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border: 2px solid black;
+    }
+    .thumbnail-container {
+      display: flex;
+      gap: 1rem;
+    }
+    .thumbnail {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      transition: all 0.3s;
+    }
+    .thumbnail:hover {
+      border-color: black;
+    }
+    .car-info {
+      padding: 1rem;
+    }
+    .price-tag {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      color: black;
+    }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .spec-item {
+      border-bottom: 1px solid #eee;
+      padding: 0.5rem 0;
+    }
+    .contact-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+    .btn-call {
+      background: black;
+      color: white;
+    }
+    .availability-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+    .available {
+      background: #00aa00;
+      color: white;
+    }
+    .sold {
+      background: #cc0000;
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .car-detail-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Consistent Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html">
+        <img src="images/logo.png" alt="Your Car Brand Logo" class="logo">
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Car Details Content -->
+  <main>
+    <div class="car-detail-container">
+      <!-- Gallery Section -->
+      <div class="car-gallery">
+        <img id="main-image" src="" alt="Car Image" class="main-image">
+        <div class="thumbnail-container" id="thumbnails">
+          <!-- Thumbnails will be added by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="car-info">
+        <h1 id="car-title"></h1>
+        <div class="price-tag" id="car-price"></div>
+        <span id="availability-badge" class="availability-badge"></span>
+        
+        <div class="specs-grid" id="specs-grid">
+          <!-- Specs will be added by JavaScript -->
+        </div>
+        
+        <p id="car-description"></p>
+        
+        <div class="contact-actions">
+          <button class="btn btn-whatsapp" id="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i> WhatsApp Inquiry
+          </button>
+          <button class="btn btn-call" id="call-btn">
+            <i class="fas fa-phone"></i> Call Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Consistent Footer -->
+  <footer>
+    <p>© 2023 Your Car Brand. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://instagram.com/autoarabia.ae" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://wa.me/+971566289099" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get car ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const carId = urlParams.get('id');
+
+      // Load car data
+      fetch('cars.json')
+        .then(response => response.json())
+        .then(data => {
+          const car = data.cars.find(item => item.id == carId);
+          if (!car) {
+            window.location.href = 'inventory.html';
+            return;
+          }
+
+          // Populate page
+          document.getElementById('car-title').textContent = 
+            `${car.make} ${car.model} (${car.year})`;
+          
+          document.getElementById('car-price').textContent = car.price;
+          
+          const badge = document.getElementById('availability-badge');
+          badge.textContent = car.available ? 'Available' : 'Sold';
+          badge.classList.add(car.available ? 'available' : 'sold');
+          
+          document.getElementById('car-description').textContent = 
+            car.description || 'No additional description available.';
+
+          // Main image
+          const mainImg = document.getElementById('main-image');
+          mainImg.src = car.image;
+          mainImg.alt = `${car.make} ${car.model}`;
+
+          // Thumbnails (assuming car.images is an array in your JSON)
+          const thumbContainer = document.getElementById('thumbnails');
+          if (car.images && car.images.length > 0) {
+            car.images.forEach((img, index) => {
+              const thumb = document.createElement('img');
+              thumb.src = img;
+              thumb.className = 'thumbnail';
+              thumb.onclick = () => mainImg.src = img;
+              thumbContainer.appendChild(thumb);
+            });
+          }
+
+          // Specs
+          const specs = [
+            { label: 'Make', value: car.make },
+            { label: 'Model', value: car.model },
+            { label: 'Year', value: car.year },
+            { label: 'Mileage', value: car.mileage || 'N/A' },
+            { label: 'Transmission', value: car.transmission || 'N/A' },
+            { label: 'Fuel Type', value: car.fuelType || 'N/A' }
+          ];
+          
+          const specsGrid = document.getElementById('specs-grid');
+          specs.forEach(spec => {
+            const item = document.createElement('div');
+            item.className = 'spec-item';
+            item.innerHTML = `<strong>${spec.label}:</strong> ${spec.value}`;
+            specsGrid.appendChild(item);
+          });
+
+          // Contact buttons
+          document.getElementById('whatsapp-btn').onclick = () => {
+            window.open(`https://wa.me/+971566289099?text=Interested in ${car.make} ${car.model} (ID: ${car.id})`);
+          };
+          
+          document.getElementById('call-btn').onclick = () => {
+            window.location.href = 'tel:+yourphonenumber';
+          };
+        });
+    });
+  </script>
+</body>
+</html>
