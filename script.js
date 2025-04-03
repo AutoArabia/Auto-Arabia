@@ -28,7 +28,7 @@ const CarApp = (() => {
           <h3>${car.make} ${car.model} (${car.year})</h3>
           <p class="price">${formatPrice(car.price)}</p>
           <p class="availability ${car.available ? 'available' : 'sold'}">
-            ${car.available ? 'متاح الآن' : 'مباع'}
+            ${car.available ? 'Available Now' : 'Sold'}
           </p>
         </div>
       </div>
@@ -53,28 +53,28 @@ const CarApp = (() => {
         <h1>${car.make || 'Unknown Make'} ${car.model || 'Unknown Model'} (${car.year || 'Unknown Year'})</h1>
         <div class="price-tag">${formatPrice(car.price)}</div>
         <span class="availability-badge ${car.available ? 'available' : 'sold'}">
-          ${car.available ? 'متاح' : 'مباع'}
+          ${car.available ? 'Available' : 'Sold'}
         </span>
         
         <div class="specs-grid">
-          <div class="spec-item"><strong>السعر:</strong> ${formatPrice(car.price)}</div>
-          <div class="spec-item"><strong>الطراز:</strong> ${car.make || 'غير متوفر'}</div>
-          <div class="spec-item"><strong>الموديل:</strong> ${car.model || 'غير متوفر'}</div>
-          <div class="spec-item"><strong>السنة:</strong> ${car.year || 'غير متوفر'}</div>
-          <div class="spec-item"><strong>الكيلومترات:</strong> ${car.mileage ? `${car.mileage.toLocaleString()} كم` : 'غير متوفر'}</div>
-          <div class="spec-item"><strong>ناقل الحركة:</strong> ${car.transmission || 'غير متوفر'}</div>
-          <div class="spec-item"><strong>نوع الوقود:</strong> ${car.fuelType || 'غير متوفر'}</div>
-          <div class="spec-item"><strong>رقم الهيكل:</strong> ${car.vin || 'غير متوفر'}</div>
+          <div class="spec-item"><strong>Price:</strong> ${formatPrice(car.price)}</div>
+          <div class="spec-item"><strong>Make:</strong> ${car.make || 'Not Available'}</div>
+          <div class="spec-item"><strong>Model:</strong> ${car.model || 'Not Available'}</div>
+          <div class="spec-item"><strong>Year:</strong> ${car.year || 'Not Available'}</div>
+          <div class="spec-item"><strong>Mileage:</strong> ${car.mileage ? `${car.mileage.toLocaleString()} km` : 'Not Available'}</div>
+          <div class="spec-item"><strong>Transmission:</strong> ${car.transmission || 'Not Available'}</div>
+          <div class="spec-item"><strong>Fuel Type:</strong> ${car.fuelType || 'Not Available'}</div>
+          <div class="spec-item"><strong>VIN:</strong> ${car.vin || 'Not Available'}</div>
         </div>
         
-        <p class="car-description">${car.description || 'لا يوجد وصف إضافي.'}</p>
+        <p class="car-description">${car.description || 'No additional description available.'}</p>
         
         <div class="contact-actions">
-          <button class="btn btn-whatsapp" onclick="window.open('https://wa.me/${encodeURIComponent(car.contact?.whatsapp || '+971YOUR_PHONE_NUMBER')}?text=${encodeURIComponent(`أهلاً، أنا مهتم بـ ${car.make} ${car.model} (ID: ${car.id})`)}')" aria-label="Send WhatsApp Inquiry">
-            <i class="fab fa-whatsapp"></i> التواصل عبر واتساب
+          <button class="btn btn-whatsapp" onclick="window.open('https://wa.me/${encodeURIComponent(car.contact?.whatsapp || '+971YOUR_PHONE_NUMBER')}?text=${encodeURIComponent(`Hello, I am interested in ${car.make} ${car.model} (ID: ${car.id})`)}')" aria-label="Send WhatsApp Inquiry">
+            <i class="fab fa-whatsapp"></i> WhatsApp Inquiry
           </button>
           <button class="btn btn-call" onclick="window.location.href='tel:${encodeURIComponent(car.contact?.phone || '+971YOUR_PHONE_NUMBER')}'" aria-label="Call Dealer">
-            <i class="fas fa-phone"></i> اتصل الآن
+            <i class="fas fa-phone"></i> Call Now
           </button>
         </div>
       </div>
