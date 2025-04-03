@@ -41,10 +41,18 @@ header {
   padding: 0 2rem;
 }
 
-.logo {
-  width: 10px;
-  height: 10px;
-  transition: transform 0.3s;
+.logo /* Target both the logo image and its container */
+.header-container img.logo {
+  width: 150px !important;  /* Force override other styles */
+  height: auto !important;
+  max-width: 100%;  /* Ensure responsiveness */
+}
+
+/* For mobile */
+@media (max-width: 768px) {
+  .header-container img.logo {
+    width: 120px !important;  /* Smaller size on mobile */
+  }
 }
 
 .logo:hover {
