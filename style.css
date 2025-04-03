@@ -304,3 +304,20 @@ footer {
 .back-button:hover {
   transform: translateX(-5px);
 }
+.footer-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #25D366; /* Green color for hover effect */
+}
