@@ -62,6 +62,13 @@
       .car-card img {
         height: 200px;
       }
+
+      .car-info h3 {
+        font-size: 1.2rem;
+      }
+      .car-info p {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -117,6 +124,14 @@
     // Initialize animations
     AOS.init({ duration: 800 });
 
+    // Format prices
+    const formatPrice = (price) => {
+      return new Intl.NumberFormat('en-AE', {
+        style: 'currency',
+        currency: 'AED'
+      }).format(price);
+    };
+
     // Load all cars from JSON
     document.addEventListener('DOMContentLoaded', function () {
       fetch('cars.json')
@@ -128,20 +143,39 @@
           const grid = document.getElementById('inventory-grid');
           grid.innerHTML = data.cars.map(car => `
             <div class="car-card" data-aos="fade-up" onclick="location.href='car-details.html?id=${car.id}'">
-              <img src="${car.image}" alt="${car.make} ${car.model}">
+              <img src="" alt="${car.make} ${car.model}" data-src="${car.image}">
               <div class="car-info">
                 <h3>${car.make} ${car.model} (${car.year})</h3>
-                <p class="price">${car.price}</p>
+                <p class="price">${formatPrice(car.price)}</p>
                 <p class="availability ${car.available ? 'available' : 'sold'}">
                   ${car.available ? 'Available Now' : 'Sold'}
                 </p>
               </div>
             </div>
           `).join('');
+
+          // Lazy-load images
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                observer.unobserve(img);
+              }
+            });
+          }, { threshold: 0.1 });
+
+          document.querySelectorAll('.car-card img').forEach(img => observer.observe(img));
         })
         .catch(error => {
           console.error('Error loading cars:', error);
-          document.getElementById('inventory-grid').innerHTML = `<p>Error loading inventory. Please try again later.</p>`;
+          document.getElementById('inventory-grid').innerHTML = `
+            <div style="text-align: center; margin-top: 5rem;">
+              <h1>Error Loading Inventory</h1>
+              <p>An unexpected error occurred. Please try again later.</p>
+              <a href="index.html">Return to Home</a>
+            </div>
+          `;
         });
     });
 
