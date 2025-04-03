@@ -1,0 +1,197 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "make": "Toyota",
+      "model": "Land Cruiser",
+      "year": 2021,
+      "price": "$250,000",
+      "mileage": "45,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "lc.jpeg",
+      "images": [
+        "images/cars/landcruiser-2.jpg",
+        "images/cars/landcruiser-3.jpg"
+      ],
+      "description": "2021 Full Option in agency condition. Regular maintenance at dealer.",
+      "vin": "JTMBY7FX80D123456",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 2,
+      "make": "Nissan",
+      "model": "Patrol",
+      "year": 2020,
+      "price": "$180,000",
+      "mileage": "60,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "patrol.jpeg",
+      "images": [],
+      "description": "GCC specs. White exterior with beige interior.",
+      "vin": "NSTBB7FK20C654321",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 3,
+      "make": "Mercedes",
+      "model": "G-Class",
+      "year": 2022,
+      "price": "$750,000",
+      "mileage": "15,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": false,
+      "image": "g63.jpeg",
+      "images": [],
+      "description": "AMG G63 with Night Package. Like new condition.",
+      "vin": "W1NYB7EY9PD789012",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 4,
+      "make": "BMW",
+      "model": "X5",
+      "year": 2020,
+      "price": "$220,000",
+      "mileage": "50,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "x5.jpeg",
+      "images": [],
+      "description": "M Sport package with premium leather interior.",
+      "vin": "5UXCR6C0XLG345678",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 5,
+      "make": "Porsche",
+      "model": "Cayenne",
+      "year": 2021,
+      "price": "$320,000",
+      "mileage": "30,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "cayenne.jpeg",
+      "images": [],
+      "description": "Turbo model with red leather seats and sunroof.",
+      "vin": "WP1AA2A56MLB90123",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 6,
+      "make": "Lexus",
+      "model": "LX 570",
+      "year": 2019,
+      "price": "$210,000",
+      "mileage": "70,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "570.jpeg",
+      "images": [],
+      "description": "Ultra Luxury package with rear entertainment system.",
+      "vin": "JTJHY00W0K4123456",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 7,
+      "make": "Range Rover",
+      "model": "Sport",
+      "year": 2021,
+      "price": "$380,000",
+      "mileage": "25,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "rr sport.jpeg",
+      "images": [],
+      "description": "HSE Dynamic with black exterior and red interior.",
+      "vin": "SALGS2SV6LA234567",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 8,
+      "make": "Audi",
+      "model": "Q7",
+      "year": 2020,
+      "price": "$195,000",
+      "mileage": "55,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "images/cars/q7.jpg",
+      "images": [],
+      "description": "Premium Plus with virtual cockpit and B&O sound system.",
+      "vin": "WA1ANAFY3L1234567",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 9,
+      "make": "Ford",
+      "model": "Raptor",
+      "year": 2022,
+      "price": "$280,000",
+      "mileage": "10,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": true,
+      "image": "raptor.jpeg",
+      "images": [],
+      "description": "2022 Model with off-road package. Desert-ready.",
+      "vin": "1FTFW1RGXNEB34567",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    },
+    {
+      "id": 10,
+      "make": "Chevrolet",
+      "model": "Tahoe",
+      "year": 2021,
+      "price": "$240,000",
+      "mileage": "40,000 km",
+      "transmission": "Automatic",
+      "fuelType": "Petrol",
+      "available": false,
+      "image": "tahoe.jpeg",
+      "images": [],
+      "description": "Premier trim with captain seats and panoramic roof.",
+      "vin": "1GNSKJKC9MR234567",
+      "contact": {
+        "whatsapp": "+971566289099",
+        "phone": "+971566289099"
+      }
+    }
+  ]
+}

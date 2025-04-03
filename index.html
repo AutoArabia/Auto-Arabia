@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover premium used cars at Your Car Brand. Find your dream car today!">
+  <title>Auto Arabia | Premium Used Cars</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Animate On Scroll (AOS) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header with Logo -->
+  <header>
+    <img src="aalogo.png" alt="Your Car Brand Logo" class="logo" data-aos="fade-down">
+  </header>
+
+  <!-- Featured Cars Section -->
+  <main>
+    <section class="featured-section">
+      <h1 data-aos="fade-up">Featured Inventory</h1>
+      <div class="featured-cars" id="featured-cars">
+        <p>Loading featured cars...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Instagram Embed (Optional) -->
+  <section class="instagram-embed" data-aos="fade-up">
+    <h2>Follow Us for Latest Drops</h2>
+    <div class="iframely-embed">
+      <div class="iframely-responsive">
+        <a href="https://www.instagram.com/autoarabia.ae/" data-iframely-url="//iframely.net/KeYG3IH" aria-label="Follow us on Instagram">Follow us on Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Load Iframely script (place before closing </body>) -->
+  <script async src="//iframely.net/embed.js"></script>
+
+  <!-- Footer -->
+  <footer>
+    <p>© <span id="current-year"></span> Your Car Brand. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/autoarabia.ae/" target="_blank" aria-label="Follow us on Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS (Animate On Scroll)
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+      });
+    });
+
+    // Update current year dynamically
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+  </script>
+  <script src="js/script.js"></script>
+</body>
+</html>
