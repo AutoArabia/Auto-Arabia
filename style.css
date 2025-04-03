@@ -43,7 +43,7 @@ header {
 
 .logo /* Target both the logo image and its container */
 .header-container img.logo {
-  width: 150px !important;  /* Force override other styles */
+  width: 10px !important;  /* Force override other styles */
   height: auto !important;
   max-width: 100%;  /* Ensure responsiveness */
 }
@@ -51,7 +51,7 @@ header {
 /* For mobile */
 @media (max-width: 768px) {
   .header-container img.logo {
-    width: 120px !important;  /* Smaller size on mobile */
+    width: 10px !important;  /* Smaller size on mobile */
   }
 }
 
