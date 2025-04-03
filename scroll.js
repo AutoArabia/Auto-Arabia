@@ -5,10 +5,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const targetId = this.getAttribute('href');
     const target = document.querySelector(targetId);
     if (target) {
-      window.scrollTo({
-        top: target.offsetTop - 80, // Adjust for header height
-        behavior: 'smooth'
-      });
+      if ('scrollBehavior' in document.documentElement.style) {
+        window.scrollTo({
+          top: target.offsetTop - 80, // Adjust for header height
+          behavior: 'smooth'
+        });
+      } else {
+        window.scrollTo(0, target.offsetTop - 80);
+      }
     } else {
       console.warn(`Target not found for anchor: ${targetId}`);
     }
@@ -33,7 +37,7 @@ const createProgressBar = () => {
     position: fixed;
     top: 0;
     left: 0;
-    height: 4px;
+    height: ${window.innerWidth >= 768 ? '4px' : '2px'};
     background: black;
     z-index: 999;
     transition: width 0.1s;
@@ -45,32 +49,34 @@ const createProgressBar = () => {
 
 const progressBar = createProgressBar();
 
-if (window.innerWidth >= 768) {
-  window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    progressBar.style.width = `${scrolled}%`;
-  });
-} else {
-  progressBar.style.display = 'none'; // Hide on smaller screens
-}
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  progressBar.style.width = `${scrolled}%`;
+});
 
 // ===== Lazy Load Images on Scroll =====
 const lazyLoadImages = () => {
-  const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.classList.add('fade-in');
-        imageObserver.unobserve(img);
-      }
-    });
-  }, { rootMargin: '200px' });
+  const images = document.querySelectorAll('img[data-src]');
+  images.forEach(img => {
+    if ('loading' in HTMLImageElement.prototype) {
+      img.src = img.dataset.src;
+      img.loading = 'lazy';
+    } else {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('fade-in');
+            imageObserver.unobserve(img);
+          }
+        });
+      }, { rootMargin: '200px' });
 
-  document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
+      imageObserver.observe(img);
+    }
   });
 };
 
@@ -89,19 +95,19 @@ const throttle = (callback, delay) => {
 const animateOnScroll = () => {
   const animateElements = document.querySelectorAll('[data-animate]');
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add(entry.target.dataset.animate);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    throttle((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(entry.target.dataset.animate);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, 100),
+    { threshold: 0.1 }
+  );
 
   animateElements.forEach(el => observer.observe(el));
-
-  // Throttle scroll events
-  window.addEventListener('scroll', throttle(() => {}, 100));
 };
 
 // ===== Back-to-Top Button =====
@@ -109,6 +115,7 @@ const createBackToTopButton = () => {
   const button = document.createElement('button');
   button.className = 'back-to-top';
   button.innerHTML = '↑';
+  button.setAttribute('aria-label', 'Scroll to top');
   button.style.cssText = `
     position: fixed;
     bottom: 2rem;
@@ -153,14 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
   animateOnScroll();
   createBackToTopButton();
   parallaxEffect();
-  
+
   // Add smooth scroll to entire document
   document.documentElement.style.scrollBehavior = 'smooth';
 });
-
-// Export functions for modular use (if needed)
-export {
-  lazyLoadImages,
-  animateOnScroll,
-  parallaxEffect
-};
