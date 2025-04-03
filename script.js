@@ -76,25 +76,4 @@ const generateCarDetailsHTML = (car) => {
   `;
 };
 
-// ===== Updated JSON Structure Recommendation =====
-/*
-{
-  "cars": [
-    {
-      "id": 1,
-      "make": "Toyota",
-      "model": "Camry",
-      "year": 2020,
-      "price": 85000, // Price in DHS (numeric, without symbols)
-      "mileage": "75,000 كم",
-      "transmission": "أوتوماتيك",
-      "fuelType": "بنزين",
-      "available": true,
-      "image": "images/cars/camry.jpg",
-      "images": ["images/cars/camry.jpg", "images/cars/camry-2.jpg"],
-      "description": "سيارة بحالة ممتازة مع صيانة كاملة",
-      "vin": "JT2BF22K3W0123456"
-    }
-  ]
-}
-*/
+
